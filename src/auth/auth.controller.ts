@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller()
-export class AppController {
+export class AuthController {
     constructor(private authService: AuthService) {
     }
 

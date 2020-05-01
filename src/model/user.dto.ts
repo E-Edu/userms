@@ -1,13 +1,12 @@
-import { IsEmail, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class UserDto {
-  @IsUUID()
-  id: string;
+    id?: string;
 
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
+    @IsEmail()
+    @IsNotEmpty()
+    email: string;
 
-  @IsNotEmpty()
-  password: string;
+    @IsNotEmpty()
+    password: string;
 }

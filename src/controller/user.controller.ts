@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { User } from '../entity/user.enetity';
+import { StatusCodesEnum } from '../model/status-codes.enum';
+import { StatusModel } from '../model/status.model';
 import { UserDto } from '../model/user.dto';
 import { UserService } from '../service/user.service';
 
@@ -21,10 +23,16 @@ export class UserController {
         return await this.userService.findAll();
     }
 
-    @UseGuards(JwtAuthGuard)
     @Post()
-    addUser(@Body() user: UserDto) {
-        return this.userService.create(user);
+    addUser(@Body() user: UserDto): Promise<StatusModel> {
+        console.log('Incoming RequestBody', user);
+        return this.userService.create(user).then((value: boolean): StatusModel => {
+            if (value) {
+                return {
+                    status: StatusCodesEnum.CREATED,
+                    message: 'Successfully created',
+                };
+            }
+        });
     }
-
 }
