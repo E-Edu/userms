@@ -1,3 +1,10 @@
-# Please fill out with content
-
 version: '3.7'
+services:
+  db:
+    image: camptocamp/postgres:11.4
+    container_name: userms-db
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGIS_GDAL_ENABLED_DRIVERS=ENABLE_ALL
+    ports:
+      - 5432:5432
