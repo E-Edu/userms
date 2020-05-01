@@ -20,7 +20,7 @@ import { JwtConfigService } from './util/JwtConfigService';
             isGlobal: true,
         }),
         JwtModule.registerAsync({ useClass: JwtConfigService }),
-        PassportModule,
+        PassportModule.register({ defaultStrategy: 'jwt' }),
         DatabaseModule,
         AppModule,
     ],

@@ -11,7 +11,7 @@ async function bootstrap() {
     app.useGlobalInterceptors(new LoggingInterceptor());
     app.useGlobalInterceptors(new ServiceTokenInterceptor());
     app.useGlobalInterceptors(new ServiceTokenAddInterceptor());
-    await app.listen(3000);
+    await app.listen(3333);
 }
 
 bootstrap();
