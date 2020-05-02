@@ -1,25 +1,59 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from '../entity/user.enetity';
+import { Scope } from '../entity/scope.entity';
+import { User } from '../entity/user.entity';
+import { ScopeEnum } from '../model/scope.enum';
 import { UserDto } from '../model/user.dto';
+import { defaultScope } from '../util/default-scope';
+import { ScopeService } from './scope.service';
 
 @Injectable()
 export class UserService {
     constructor(
         @Inject('USER_REPOSITORY')
-        private usersRepository: Repository<User>,
+        private readonly usersRepository: Repository<User>,
+        /*private readonly mailService: MailerService,*/
+        private readonly scopeService: ScopeService,
     ) {
     }
 
-    findAll(): Promise<User[]> {
+    async create(user: UserDto): Promise<boolean> {
+        const scopes: Scope[] = [];
+        for (const value of defaultScope) {
+            await this.scopeService.upsert(value).then(scope => {
+                scopes.push(scope);
+            });
+        }
+        const userObject: User = new User(user.email, user.password, scopes);
+        return await this.usersRepository
+            .save(userObject)
+            .then((value): boolean => {
+                /*this.mailService.sendMail({
+                    to: value.email,
+                    from: 'no-reply@e-edu.com',
+                    subject: 'Testing Nest Mailermodule with template ✔',
+                    template: 'register',
+                    context: {
+                        url: 'https://e-edu.the-morpheus.de/',
+                        token: value.token
+                    },
+                });*/
+                return true;
+            })
+            .catch(() => {
+                throw new BadRequestException('User already exist');
+            });
+    }
+
+    async findAll(): Promise<User[]> {
         return this.usersRepository.find();
     }
 
-    findOne(id: string): Promise<User> {
+    async findOne(id: string): Promise<User> {
         return this.usersRepository.findOne(id);
     }
 
-    findOneByEmail(email: string): Promise<User> {
+    async findOneByEmail(email: string): Promise<User> {
         return this.usersRepository.findOne({ where: [{ email }] });
     }
 
@@ -27,11 +61,21 @@ export class UserService {
         await this.usersRepository.delete(id);
     }
 
-    async create(user: UserDto): Promise<boolean> {
-        const userObject: User = new User(user.email, user.password);
-        console.log('Create new User:', userObject);
-        return await this.usersRepository.save(userObject).then(() => true).catch(() => {
-            throw new BadRequestException('User already exist');
-        });
+    async addScope(
+        userId: string,
+        updatedScops: ScopeEnum[],
+    ): Promise<boolean> {
+        const scopes: Scope[] = [];
+        for (const value of updatedScops) {
+            await this.scopeService.upsert(value).then(scope => {
+                scopes.push(scope);
+            });
+        }
+        return await this.usersRepository
+            .update(userId, { scope: scopes })
+            .then(() => true)
+            .catch(() => {
+                throw new BadRequestException();
+            });
     }
 }

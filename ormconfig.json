@@ -1,12 +1,12 @@
 {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "mysecretpassword",
+  "autoLoadEntities": true,
   "entities": [
     "dist/entity/user.entity.ts"
   ],
+  "host": "localhost",
+  "password": "mysecretpassword",
+  "port": 5432,
   "synchronize": true,
-  "autoLoadEntities": true
+  "type": "postgres",
+  "username": "postgres"
 }

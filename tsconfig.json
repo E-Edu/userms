@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "baseUrl": "./",
     "declaration": true,
-    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
+    "incremental": true,
+    "module": "commonjs",
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "es2017"
   },
+  "include": [
+    "src/**/*",
+    "**/*.hbs"
+  ],
   "exclude": [
     "node_modules",
     "dist"

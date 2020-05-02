@@ -9,7 +9,9 @@ import { JwtStrategy } from './auth/jwt.strategy';
 import { LocalStrategy } from './auth/local.strategy';
 import { UserController } from './controller/user.controller';
 import { DatabaseModule } from './database/database.module';
+import { scopeProvider } from './provider/scope.provider';
 import { userProvider } from './provider/user.provider';
+import { ScopeService } from './service/scope.service';
 import { UserService } from './service/user.service';
 import { JwtConfigService } from './util/JwtConfigService';
 
@@ -20,18 +22,40 @@ import { JwtConfigService } from './util/JwtConfigService';
             isGlobal: true,
         }),
         JwtModule.registerAsync({ useClass: JwtConfigService }),
-        PassportModule.register({ defaultStrategy: 'jwt' }),
+        PassportModule,
+        /*MailerModule.forRootAsync({
+            useFactory: () => ({
+                transport: '', // TODO smtp sting anlegen
+                defaults: {
+                    from: '"e-edu" <no-reply@e-edu.com>',
+                },
+                preview: true,
+                template: {
+                    dir: __dirname + '/mail-template',
+                    adapter: new PugAdapter(),
+                    options: {
+                        strict: true,
+                    },
+                },
+            }),
+        }),*/
         DatabaseModule,
         AppModule,
     ],
-    controllers: [
-        AppController,
-        UserController,
-        AuthController,
-    ],
+    controllers: [AppController, UserController, AuthController],
     providers: [
+        /* {
+            provide: APP_GUARD,
+            useClass: JwtAuthGuard,
+        },
+        {
+            provide: APP_GUARD,
+            useClass: RoleGuard,
+        },*/
         ...userProvider,
+        ...scopeProvider,
         UserService,
+        ScopeService,
         AuthService,
         LocalStrategy,
         JwtStrategy,

@@ -1,5 +1,6 @@
 import { createConnection } from 'typeorm';
-import { User } from '../entity/user.enetity';
+import { Scope } from '../entity/scope.entity';
+import { User } from '../entity/user.entity';
 
 export const databaseProviders = [
     {
@@ -11,9 +12,7 @@ export const databaseProviders = [
                 port: +process.env.USERMS_DATABASE_PORT,
                 username: process.env.USERMS_DATABASE_USER,
                 password: process.env.USERMS_DATABASE_PASSWORD,
-                entities: [
-                    User,
-                ],
+                entities: [User, Scope],
                 synchronize: true,
             });
         },

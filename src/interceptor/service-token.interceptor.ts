@@ -6,11 +6,17 @@ import { Timestamp } from '../util/timestamp';
 export class ServiceTokenInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
         const request: Request = context.switchToHttp().getRequest();
-        if (request.headers['x-servicetoken'] === process.env.USERMS_SERVICE_TOKEN) {
-            return next
-                .handle();
+        if (
+            request.headers['x-servicetoken'] ===
+            process.env.USERMS_SERVICE_TOKEN
+        ) {
+            return next.handle();
         }
-        console.warn(`${Timestamp.now()} Unauthorized Request from ${request.headers['x-Forwarded-For']} on route ${request.url}`);
+        console.warn(
+            `${Timestamp.now()} Unauthorized Request from ${
+                request.headers['x-Forwarded-For']
+            } on route ${request.url}`,
+        );
         throw new UnauthorizedException();
     }
 }
