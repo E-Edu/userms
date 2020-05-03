@@ -1,4 +1,17 @@
 export enum ScopeEnum {
     USER = 'USER',
     ADMIN = 'ADMIN',
+    USER_USER_WRITE_SELF = 'user.user.write.self',
+    USER_USER_DELETE_SELF = 'user.user.delete.self',
+    TASK_SUBJECT_READ_ALL = 'task.subject.read.all',
+    TASK_MODULE_READ_ALL = 'task.module.read.all',
+    TASK_LECTURE_READ_ALL = 'task.lecture.read.all',
+    TASK_LECTUREGROUP_READ_ALL = 'task.lectureGroup.read.all',
+    TASK_TASK_READ = 'task.task.read',
+    USER_USER_READ_WRITE_DELETE_ALL_BETA = 'user.user.read+write+delete.all+beta',
+    TASK_SUBJECT_READ_WRITE_DELETE_ALL_BETA = 'task.subject.read+write+delete.all+beta',
+    TASK_MODULE_READ_WRITE_DELETE_ALL_BETA = 'task.module.read+write+delete.all+beta',
+    TASK_LECTURE_READ_WRITE_DELETE_ALL_BETA = 'task.lecture.read+write+delete.all+beta',
+    TASK_LECTUREGROUP_READ_WRITE_DELETE_ALL_BETA = 'task.lectureGroup.read+write+delete.all+beta',
+    TASK_TASK_READ_WRITE_DELETE_ALL_BETA = 'task.task.read+write+delete.all+beta',
 }

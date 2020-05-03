@@ -40,7 +40,6 @@ import { JwtConfigService } from './util/JwtConfigService';
             }),
         }),*/
         DatabaseModule,
-        AppModule,
     ],
     controllers: [AppController, UserController, AuthController],
     providers: [

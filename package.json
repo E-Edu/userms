@@ -8,10 +8,12 @@
     "@nestjs/jwt": "^7.0.0",
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/swagger": "^4.5.3",
     "@nestjs/typeorm": "^7.0.0",
     "bcrypt": "^4.0.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
+    "fs": "0.0.1-security",
     "moment": "^2.25.0",
     "nodemailer": "^6.4.6",
     "passport": "^0.4.1",
@@ -20,9 +22,11 @@
     "passport-local": "^1.0.0",
     "pg": "^8.0.3",
     "pug": "^2.0.4",
+    "redoc": "^2.0.0-rc.28",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
+    "swagger-ui-express": "^4.1.4",
     "typeorm": "^0.2.24",
     "uuid": "^8.0.0"
   },
@@ -77,7 +81,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "redoc": "npx redoc-cli serve \"swagger-spec.json\" --ssr",
+    "redoc:watch": "npx redoc-cli serve \"swagger-spec.json\" --watch --ssr",
+    "redoc:build": "npx redoc-cli bundle \"swagger-spec.json\""
   },
   "version": "0.0.1"
 }

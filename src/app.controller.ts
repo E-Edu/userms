@@ -1,11 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { StatusCodesEnum } from './model/status-codes.enum';
-import { StatusModel } from './model/status.model';
+import { StatusDto } from './model/status.dto';
 
 @Controller()
 export class AppController {
     @Get()
-    health(): StatusModel {
+    health(): StatusDto {
         return { status: StatusCodesEnum.OK };
     }
 }

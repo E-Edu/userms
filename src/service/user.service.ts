@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Scope } from '../entity/scope.entity';
 import { User } from '../entity/user.entity';
 import { ScopeEnum } from '../model/scope.enum';
-import { UserDto } from '../model/user.dto';
+import { UserCreateDto } from '../model/user-create.dto';
 import { defaultScope } from '../util/default-scope';
 import { ScopeService } from './scope.service';
 
@@ -17,14 +17,14 @@ export class UserService {
     ) {
     }
 
-    async create(user: UserDto): Promise<boolean> {
+    async create(user: UserCreateDto): Promise<boolean> {
         const scopes: Scope[] = [];
         for (const value of defaultScope) {
             await this.scopeService.upsert(value).then(scope => {
                 scopes.push(scope);
             });
         }
-        const userObject: User = new User(user.email, user.password, scopes);
+        const userObject: User = new User(user.email, user.passwordHash, scopes);
         return await this.usersRepository
             .save(userObject)
             .then((value): boolean => {
@@ -41,7 +41,7 @@ export class UserService {
                 return true;
             })
             .catch(() => {
-                throw new BadRequestException('User already exist');
+                throw new BadRequestException();
             });
     }
 
