@@ -13,7 +13,7 @@
     "@types/bcryptjs": "*",
     "bcrypt": "*",
     "class-validator": "*",
-    "fs": "0.0.1-security",
+    "fs": "0.0.2",
     "moment": "*",
     "nodemailer": "*",
     "passport": "*",
