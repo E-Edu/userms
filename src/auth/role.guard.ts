@@ -1,12 +1,11 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { Scope } from '../entity/scope.entity';
-import { ScopeEnum } from '../model/scope.enum';
+import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { Scope } from "../entity/scope.entity";
+import { ScopeEnum } from "../model/scope.enum";
 
 @Injectable()
 export class RoleGuard implements CanActivate {
-    constructor(private reflector: Reflector) {
-    }
+    constructor(private reflector: Reflector) {}
 
     canActivate(context: ExecutionContext): boolean {
         const roles = this.reflector.get<ScopeEnum[]>(

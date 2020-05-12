@@ -1,10 +1,10 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { BearerTokenDto } from '../model/bearer-token.dto';
-import { RefreshtokenDto } from '../model/refreshtoken.dto';
-import { UserCreateDto } from '../model/user-create.dto';
-import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
+import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { ApiBadRequestResponse, ApiBody, ApiHeader, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { BearerTokenDto } from "../model/bearer-token.dto";
+import { RefreshtokenDto } from "../model/refreshtoken.dto";
+import { UserCreateDto } from "../model/user-create.dto";
+import { AuthService } from "./auth.service";
+import { LocalAuthGuard } from "./local-auth.guard";
 
 @ApiHeader({
     name: 'X-ServiceToken',
@@ -13,8 +13,7 @@ import { LocalAuthGuard } from './local-auth.guard';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {
-    }
+    constructor(private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)
     @Post('login')

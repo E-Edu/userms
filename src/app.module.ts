@@ -1,19 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { AppController } from './app.controller';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
-import { JwtStrategy } from './auth/jwt.strategy';
-import { LocalStrategy } from './auth/local.strategy';
-import { UserController } from './controller/user.controller';
-import { DatabaseModule } from './database/database.module';
-import { scopeProvider } from './provider/scope.provider';
-import { userProvider } from './provider/user.provider';
-import { ScopeService } from './service/scope.service';
-import { UserService } from './service/user.service';
-import { JwtConfigService } from './util/JwtConfigService';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { JwtModule } from "@nestjs/jwt";
+import { PassportModule } from "@nestjs/passport";
+import { AppController } from "./app.controller";
+import { AuthController } from "./auth/auth.controller";
+import { AuthService } from "./auth/auth.service";
+import { JwtStrategy } from "./auth/jwt.strategy";
+import { LocalStrategy } from "./auth/local.strategy";
+import { UserController } from "./controller/user.controller";
+import { DatabaseModule } from "./database/database.module";
+import { scopeProvider } from "./provider/scope.provider";
+import { userProvider } from "./provider/user.provider";
+import { ScopeService } from "./service/scope.service";
+import { UserService } from "./service/user.service";
+import { JwtConfigService } from "./util/JwtConfigService";
 
 @Module({
     imports: [
@@ -60,5 +60,4 @@ import { JwtConfigService } from './util/JwtConfigService';
         JwtStrategy,
     ],
 })
-export class AppModule {
-}
+export class AppModule {}
