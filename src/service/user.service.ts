@@ -1,12 +1,12 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Scope } from '../entity/scope.entity';
-import { User } from '../entity/user.entity';
-import { PasswordResetDto } from '../model/passwordReset.dto';
-import { ScopeEnum } from '../model/scope.enum';
-import { UserCreateDto } from '../model/user-create.dto';
-import { defaultScope } from '../util/default-scope';
-import { ScopeService } from './scope.service';
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { Scope } from "../entity/scope.entity";
+import { User } from "../entity/user.entity";
+import { PasswordResetDto } from "../model/passwordReset.dto";
+import { ScopeEnum } from "../model/scope.enum";
+import { UserCreateDto } from "../model/user-create.dto";
+import { defaultScope } from "../util/default-scope";
+import { ScopeService } from "./scope.service";
 
 @Injectable()
 export class UserService {
@@ -15,8 +15,7 @@ export class UserService {
         private readonly usersRepository: Repository<User>,
         /*private readonly mailService: MailerService,*/
         private readonly scopeService: ScopeService,
-    ) {
-    }
+    ) {}
 
     async create(user: UserCreateDto): Promise<boolean> {
         const scopes: Scope[] = [];
@@ -25,7 +24,11 @@ export class UserService {
                 scopes.push(scope);
             });
         }
-        const userObject: User = new User(user.email, user.passwordHash, scopes);
+        const userObject: User = new User(
+            user.email,
+            user.passwordHash,
+            scopes,
+        );
         return await this.usersRepository
             .save(userObject)
             .then((value): boolean => {
@@ -97,20 +100,22 @@ export class UserService {
     }
 
     async updatePassword(password: PasswordResetDto, token?: string) {
-        this.usersRepository.findOne({ where: [{ passwordToken: token }] }).then((user: User) => {
-            user.password = password.passwordHash;
-            user.hashPassword();
-            this.usersRepository.save(user);
-        });
+        this.usersRepository
+            .findOne({ where: [{ passwordToken: token }] })
+            .then((user: User) => {
+                user.password = password.passwordHash;
+                user.hashPassword();
+                this.usersRepository.save(user);
+            });
     }
 
     createToken(): string {
-
         return this.randomString() + this.randomString();
     }
 
     randomString(): string {
-        return Math.random().toString(36).substr(2);
+        return Math.random()
+            .toString(36)
+            .substr(2);
     }
-
 }

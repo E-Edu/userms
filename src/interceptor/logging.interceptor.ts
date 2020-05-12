@@ -1,6 +1,6 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { Timestamp } from '../util/timestamp';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { Observable } from "rxjs";
+import { Timestamp } from "../util/timestamp";
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {

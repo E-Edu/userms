@@ -1,11 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtModuleOptions, JwtOptionsFactory } from '@nestjs/jwt';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { JwtModuleOptions, JwtOptionsFactory } from "@nestjs/jwt";
 
 @Injectable()
 export class JwtConfigService implements JwtOptionsFactory {
-    constructor(private readonly config: ConfigService) {
-    }
+    constructor(private readonly config: ConfigService) {}
 
     createJwtOptions(): JwtModuleOptions {
         return {

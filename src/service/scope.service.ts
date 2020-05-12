@@ -1,15 +1,14 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Scope } from '../entity/scope.entity';
-import { ScopeEnum } from '../model/scope.enum';
+import { BadRequestException, Inject, Injectable } from "@nestjs/common";
+import { Repository } from "typeorm";
+import { Scope } from "../entity/scope.entity";
+import { ScopeEnum } from "../model/scope.enum";
 
 @Injectable()
 export class ScopeService {
     constructor(
         @Inject('SCOPE_REPOSITORY')
         private scopeRepository: Repository<Scope>,
-    ) {
-    }
+    ) {}
 
     async create(scope: ScopeEnum): Promise<boolean> {
         return await this.scopeRepository
