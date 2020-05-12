@@ -12,7 +12,6 @@
     "@nestjs/typeorm": "^7.0.0",
     "@types/bcryptjs": "^2.4.2",
     "bcrypt": "^4.0.1",
-    "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "fs": "0.0.1-security",
     "moment": "^2.25.0",
