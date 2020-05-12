@@ -48,6 +48,9 @@ export class User {
     @UpdateDateColumn()
     updatedAt: Date;
 
+    @Column({ default: null })
+    passwordToken: string;
+
     constructor(email: string, password: string, scope: Scope[]) {
         this.email = email;
         this.password = password;

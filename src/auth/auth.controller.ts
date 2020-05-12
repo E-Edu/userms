@@ -1,6 +1,7 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BearerTokenDto } from '../model/bearer-token.dto';
+import { RefreshtokenDto } from '../model/refreshtoken.dto';
 import { UserCreateDto } from '../model/user-create.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -22,5 +23,13 @@ export class AuthController {
     @ApiResponse({ status: 200, type: BearerTokenDto })
     async login(@Body() body: UserCreateDto): Promise<BearerTokenDto> {
         return this.authService.login(body);
+    }
+
+    @Post('refresh')
+    @ApiBody({ type: [RefreshtokenDto] })
+    @ApiBadRequestResponse()
+    @ApiResponse({ status: 200, type: BearerTokenDto })
+    async refresh(@Body() body: RefreshtokenDto): Promise<BearerTokenDto> {
+        return this.authService.refresh(body);
     }
 }

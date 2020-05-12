@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 import { BearerTokenDto } from '../model/bearer-token.dto';
+import { RefreshtokenDto } from '../model/refreshtoken.dto';
 import { UserCreateDto } from '../model/user-create.dto';
 import { UserService } from '../service/user.service';
 
@@ -16,6 +17,19 @@ export class AuthService {
     async login(userDto: UserCreateDto): Promise<BearerTokenDto> {
         const user = await this.usersService.findOneByEmail(userDto.email);
         if (compareSync(userDto.passwordHash, user.password)) {
+            return {
+                access_token: this.jwtService.sign({
+                    sub: user.id,
+                    scope: user.scope,
+                }),
+            };
+        }
+        throw new UnauthorizedException();
+    }
+
+    async refresh(refresh: RefreshtokenDto): Promise<BearerTokenDto> {
+        const user = await this.usersService.findOne(refresh.userId);
+        if (!!refresh.refresh_token) {
             return {
                 access_token: this.jwtService.sign({
                     sub: user.id,

@@ -2,6 +2,7 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Scope } from '../entity/scope.entity';
 import { User } from '../entity/user.entity';
+import { PasswordResetDto } from '../model/passwordReset.dto';
 import { ScopeEnum } from '../model/scope.enum';
 import { UserCreateDto } from '../model/user-create.dto';
 import { defaultScope } from '../util/default-scope';
@@ -78,4 +79,38 @@ export class UserService {
                 throw new BadRequestException();
             });
     }
+
+    async resetPassword(email: string) {
+        await this.findOneByEmail(email).then((user: User) => {
+            user.passwordToken = this.createToken();
+            /*this.mailService.sendMail({
+                    to: user.email,
+                    from: 'no-reply@gewia.com',
+                    subject: 'Reset Password',
+                    template: 'register',
+                    context: {
+                        url: 'https://gewia.com/resetPassword/'+user.passwordToken,
+                    },
+                });*/
+            this.usersRepository.save(user);
+        });
+    }
+
+    async updatePassword(password: PasswordResetDto, token?: string) {
+        this.usersRepository.findOne({ where: [{ passwordToken: token }] }).then((user: User) => {
+            user.password = password.passwordHash;
+            user.hashPassword();
+            this.usersRepository.save(user);
+        });
+    }
+
+    createToken(): string {
+
+        return this.randomString() + this.randomString();
+    }
+
+    randomString(): string {
+        return Math.random().toString(36).substr(2);
+    }
+
 }
