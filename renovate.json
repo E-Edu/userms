@@ -1,6 +1,6 @@
 {
   "schedule": [
-    "after 10pm every weekday",
+    "after 7pm every weekday",
     "before 6am every weekday",
     "every weekend"
   ],
@@ -15,6 +15,8 @@
   "packageRules": [
     {
       "updateTypes": [
+        "major",
+        "minor",
         "patch",
         "pin",
         "digest"
