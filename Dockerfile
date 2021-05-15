@@ -8,7 +8,7 @@ RUN npm run build
 
 
 # Second Stage : Setup command to run your app using lightweight node image
-FROM node:14.2.0-alpine
+FROM node:14.17.0-alpine
 ENV DATABASE_HOSTNAME=postgres
 ENV DATABASE_PORT=5432
 ENV DATABASE_USERNAME=postgres
